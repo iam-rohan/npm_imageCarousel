@@ -1,0 +1,11 @@
+{
+  "name": "@rohanacharya/imagecarousel",
+  "version": "0.0.1",
+  "description": "A image carousel component able to formulate a image slideshow.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rohan Acharya <rohanacharya42@gmail.com>",
+  "license": "ISC"
+}
