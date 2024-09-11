@@ -17,7 +17,7 @@ To use the Carousel component, you need to include the JavaScript and CSS files 
    If you're using npm, you can install the package via:
 
    ```bash
-   npm install carousel-component-rohan
+   npm install @rohanacharya/imagecarousel
    ```
 
 2. **Include the JavaScript and CSS Files:**
@@ -25,15 +25,24 @@ To use the Carousel component, you need to include the JavaScript and CSS files 
    After installation, you need to include the `carousel.js` and `carousel.css` files in your project. Make sure to add these files to your HTML.
 
    ```html
-   <link rel="stylesheet" href="path/to/node_modules/carousel-component-rohan/carousel.css" />
-   <script src="path/to/node_modules/carousel-component-rohan/carousel.js" type="module"></script>
+   <link rel="stylesheet" href="node_modules/@rohanacharya/imagecarousel/dist/styles.css" />
+   <script src="node_modules/@rohanacharya/imagecarousel/dist/index.js"></script>
    ```
 
    Alternatively, if you are using a build tool, you can import the CSS and JS directly into your project's entry file:
 
    ```js
-   import "carousel-component-rohan/carousel.css";
-   import Carousel from "carousel-component-rohan/carousel.js";
+   import Carousel from "@rohanacharya/imagecarousel";
+   ```
+
+3. **Initialize the Carousel:**
+
+   Use JavaScript to initialize the carousel component:
+
+   ```js
+   document.addEventListener("DOMContentLoaded", () => {
+     new Carousel(".carousel-container", ".carousel-image");
+   });
    ```
 
 ## Usage
@@ -56,7 +65,7 @@ Add the following HTML structure to your page:
 Initialize the carousel in your JavaScript:
 
 ```js
-import Carousel from "carousel-component-rohan/carousel.js";
+import Carousel from "@rohanacharya/imagecarousel";
 
 const carousel = new Carousel(".carousel-container", ".carousel-image");
 ```
