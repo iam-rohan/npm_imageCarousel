@@ -1,21 +1,99 @@
-function carouselDots(images, mainContainer) {
-  const dotCount = document.querySelectorAll(images);
+class Carousel {
+  constructor(mainContainer, images) {
+    this.container = document.querySelector(mainContainer);
+    this.images = document.querySelectorAll(images);
+    this.currentIndex = 0;
+    this.init();
+  }
 
-  const container = document.querySelector(mainContainer);
+  init() {
+    this.carouselDots();
+    this.addEventListners();
+  }
 
-  const carouselDots = document.createElement("div");
-  carouselDots.classList.add("carousel-dots");
+  addEventListners() {
+    const carouselControls = document.querySelectorAll(".carousel-control");
+    carouselControls.forEach((item) => {
+      item.addEventListener("click", (event) => {
+        const controllerIdentify = event.target.classList;
 
-  dotCount.forEach((_, index) => {
-    const carouselDot = document.createElement("span");
-    carouselDot.classList.add("carousel-dot");
-    if (index === 0) {
-      carouselDot.classList.add("active");
+        if (controllerIdentify.contains("prev")) {
+          this.prevSlide();
+        } else if (controllerIdentify.contains("next")) {
+          this.nextSlide();
+        }
+        console.log(this.currentIndex);
+      });
+    });
+  }
+
+  prevSlide() {
+    this.currentIndex -= 1;
+    this.checkIndex();
+    this.images.forEach((item, index) => {
+      if (index === this.currentIndex) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
+
+    this.shiftActiveDot(this.currentIndex);
+  }
+
+  checkIndex() {
+    if (this.currentIndex === -1) {
+      this.currentIndex = this.images.length - 1;
+    } else if (this.currentIndex === this.images.length) {
+      this.currentIndex = 0;
     }
-    carouselDots.appendChild(carouselDot);
-  });
+  }
 
-  container.appendChild(carouselDots);
+  nextSlide() {
+    this.currentIndex += 1;
+    this.checkIndex();
+    this.images.forEach((item, index) => {
+      if (index === this.currentIndex) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
+
+    this.shiftActiveDot(this.currentIndex);
+  }
+
+  shiftActiveDot(imageIndex) {
+    const dots = document.querySelectorAll(".carousel-dot");
+
+    dots.forEach((item, index) => {
+      if (index === imageIndex) {
+        item.classList.add("active");
+      } else {
+        item.classList.remove("active");
+      }
+    });
+  }
+
+  carouselDots() {
+    const dotCount = this.images;
+
+    const container = this.container;
+
+    const carouselDots = document.createElement("div");
+    carouselDots.classList.add("carousel-dots");
+
+    dotCount.forEach((_, index) => {
+      const carouselDot = document.createElement("span");
+      carouselDot.classList.add("carousel-dot");
+      if (index === 0) {
+        carouselDot.classList.add("active");
+      }
+      carouselDots.appendChild(carouselDot);
+    });
+
+    container.appendChild(carouselDots);
+  }
 }
 
-carouselDots(".carousel-image", ".carousel-container");
+const carousel = new Carousel(".carousel-container", ".carousel-image");
