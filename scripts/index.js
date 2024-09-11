@@ -1,4 +1,4 @@
-class Carousel {
+export class Carousel {
   constructor(mainContainer, images) {
     this.container = document.querySelector(mainContainer);
     this.images = document.querySelectorAll(images);
@@ -9,6 +9,11 @@ class Carousel {
   init() {
     this.carouselDots();
     this.addEventListners();
+    this.autoSlide();
+  }
+
+  autoSlide() {
+    setInterval(() => this.nextSlide(), 5000);
   }
 
   addEventListners() {
@@ -23,6 +28,23 @@ class Carousel {
           this.nextSlide();
         }
         console.log(this.currentIndex);
+      });
+    });
+
+    const carouselDots = document.querySelectorAll(".carousel-dot");
+    carouselDots.forEach((item) => {
+      item.addEventListener("click", () => {
+        const dotIndex = Array.from(item.parentElement.children).indexOf(item);
+
+        this.images.forEach((item, index) => {
+          if (index === dotIndex) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+        this.shiftActiveDot(dotIndex);
+        this.currentIndex = dotIndex;
       });
     });
   }
